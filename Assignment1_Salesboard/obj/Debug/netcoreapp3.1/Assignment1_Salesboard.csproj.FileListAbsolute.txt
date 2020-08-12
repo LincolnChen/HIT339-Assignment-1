@@ -174,3 +174,4 @@ C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netc
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Assignment1_Salesboard.dll
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Assignment1_Salesboard.pdb
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Assignment1_Salesboard.genruntimeconfig.cache
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Hello.cshtml.g.cs
