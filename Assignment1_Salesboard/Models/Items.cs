@@ -17,5 +17,6 @@ namespace Assignment1_Salesboard.Models
 
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        public string Seller { get; set; }
     }
 }
