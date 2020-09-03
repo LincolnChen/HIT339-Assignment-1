@@ -5,18 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Assignment1_Salesboard.Models;
 using Assignment1_Salesboard.Data;
-
-
+using Assignment1_Salesboard.Models;
 
 namespace Assignment1_Salesboard.Controllers
 {
     public class SalesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly Assignment1_SalesboardContext _context;
 
-        public SalesController(ApplicationDbContext context)
+        public SalesController(Assignment1_SalesboardContext context)
         {
             _context = context;
         }
@@ -52,11 +50,11 @@ namespace Assignment1_Salesboard.Controllers
         }
 
         // POST: Sales/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Item,Buyer,Quantity")] Sales sales)
+        public async Task<IActionResult> Create([Bind("Id,ItemId,Buyer,Quantity")] Sales sales)
         {
             if (ModelState.IsValid)
             {
@@ -84,11 +82,11 @@ namespace Assignment1_Salesboard.Controllers
         }
 
         // POST: Sales/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,Quantity")] Sales sales)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemId,Buyer,Quantity")] Sales sales)
         {
             if (id != sales.Id)
             {
@@ -117,7 +115,6 @@ namespace Assignment1_Salesboard.Controllers
             }
             return View(sales);
         }
-
 
         // GET: Sales/Delete/5
         public async Task<IActionResult> Delete(int? id)

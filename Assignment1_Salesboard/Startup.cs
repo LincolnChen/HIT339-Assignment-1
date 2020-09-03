@@ -35,6 +35,9 @@ namespace Assignment1_Salesboard
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDbContext<Assignment1_SalesboardContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Assignment1_SalesboardContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
