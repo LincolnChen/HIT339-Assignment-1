@@ -12,9 +12,9 @@ namespace Assignment1_Salesboard.Controllers
 {
     public class SalesController : Controller
     {
-        private readonly Assignment1_SalesboardContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SalesController(Assignment1_SalesboardContext context)
+        public SalesController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace Assignment1_Salesboard.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ItemId,Buyer,Quantity")] Sales sales)
+        public async Task<IActionResult> Create([Bind("Id,Item,Buyer,Quantity")] Sales sales)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Assignment1_Salesboard.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemId,Buyer,Quantity")] Sales sales)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,Quantity")] Sales sales)
         {
             if (id != sales.Id)
             {
