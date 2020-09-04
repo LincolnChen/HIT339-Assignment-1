@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Assignment1_Salesboard.Models
 {
-    public class Sales
+    public class Sale
     {
         public int Id { get; set; }
         public int Item { get; set; }

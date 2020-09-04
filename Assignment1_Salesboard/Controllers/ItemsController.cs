@@ -183,18 +183,18 @@ namespace Assignment1_Salesboard
         // POST: Items/Purchase/5
         [HttpPost, ActionName("Purchase")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PurchaseConfirmed([Bind("Item,Quantity")] Sales sales)
+        public async Task<IActionResult> PurchaseConfirmed([Bind("Item,Quantity")] Sale sale)
         {
             // get the buyer
             var buyer = _userManager.GetUserName(User);
-            sales.Buyer = buyer;
+            sale.Buyer = buyer;
 
             // make the sale
-            _context.Add(sales);
+            _context.Add(sale);
 
             // find the item
             var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == sales.Item);
+                .FirstOrDefaultAsync(m => m.Id == sale.Item);
 
             if (items == null)
             {
@@ -202,7 +202,7 @@ namespace Assignment1_Salesboard
             }
 
             // update the quantity
-            items.Quantity -= sales.Quantity;
+            items.Quantity -= sale.Quantity;
             _context.Update(items);
 
             // Save the changes
