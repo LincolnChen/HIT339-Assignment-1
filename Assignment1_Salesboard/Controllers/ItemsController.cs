@@ -15,9 +15,9 @@ namespace Assignment1_Salesboard
     public class ItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ItemsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public ItemsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -68,7 +68,7 @@ namespace Assignment1_Salesboard
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Quantity")] Items items)
+        public async Task<IActionResult> Create([Bind("Id,ItemName,ItemDescription,Price,Quantity,Seller")] Items items)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace Assignment1_Salesboard
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] Items items)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemName,ItemDescription,Price,Quantity,Seller")] Items items)
         {
             if (id != items.Id)
             {
