@@ -10,22 +10,22 @@ using Assignment1_Salesboard.Models;
 
 namespace Assignment1_Salesboard.Controllers
 {
-    public class SaleController : Controller
+    public class SalesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SaleController(ApplicationDbContext context)
+        public SalesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Sale
+        // GET: Sales
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sale.ToListAsync());
+            return View(await _context.Sales.ToListAsync());
         }
 
-        // GET: Sale/Details/5
+        // GET: Sales/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var sale = await _context.Sale
+            var sales = await _context.Sales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (sale == null)
+            if (sales == null)
             {
                 return NotFound();
             }
 
-            return View(sale);
+            return View(sales);
         }
 
-        // GET: Sale/Create
+        // GET: Sales/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Sale/Create
+        // POST: Sales/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Item,Buyer,Quantity")] Sale sale)
+        public async Task<IActionResult> Create([Bind("Id,Item,Buyer,Quantity")] Sales sales)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sale);
+                _context.Add(sales);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(sale);
+            return View(sales);
         }
 
-        // GET: Sale/Edit/5
+        // GET: Sales/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var sale = await _context.Sale.FindAsync(id);
-            if (sale == null)
+            var sales = await _context.Sales.FindAsync(id);
+            if (sales == null)
             {
                 return NotFound();
             }
-            return View(sale);
+            return View(sales);
         }
 
-        // POST: Sale/Edit/5
+        // POST: Sales/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,Quantity")] Sale sale)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,Quantity")] Sales sales)
         {
-            if (id != sale.Id)
+            if (id != sales.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Assignment1_Salesboard.Controllers
             {
                 try
                 {
-                    _context.Update(sale);
+                    _context.Update(sales);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SaleExists(sale.Id))
+                    if (!SalesExists(sales.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Assignment1_Salesboard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(sale);
+            return View(sales);
         }
 
-        // GET: Sale/Delete/5
+        // GET: Sales/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var sale = await _context.Sale
+            var sales = await _context.Sales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (sale == null)
+            if (sales == null)
             {
                 return NotFound();
             }
 
-            return View(sale);
+            return View(sales);
         }
 
-        // POST: Sale/Delete/5
+        // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sale = await _context.Sale.FindAsync(id);
-            _context.Sale.Remove(sale);
+            var sales = await _context.Sales.FindAsync(id);
+            _context.Sales.Remove(sales);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SaleExists(int id)
+        private bool SalesExists(int id)
         {
-            return _context.Sale.Any(e => e.Id == id);
+            return _context.Sales.Any(e => e.Id == id);
         }
     }
 }

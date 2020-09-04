@@ -15,13 +15,15 @@ namespace Assignment1_Salesboard.Data
         }
 
         public DbSet<Assignment1_Salesboard.Models.Items> Items { get; set; }
-        public DbSet<Assignment1_Salesboard.Models.Sale> Sale { get; set; }
+        public DbSet<Assignment1_Salesboard.Models.Sales> Sales { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
         }
+
+
 
 
     }

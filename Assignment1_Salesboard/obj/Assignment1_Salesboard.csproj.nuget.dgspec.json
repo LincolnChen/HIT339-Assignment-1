@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\az\\Desktop\\Assignment1_Salesboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj": {}
+    "C:\\Users\\az\\Desktop\\Assignment1_Saleboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\az\\Desktop\\Assignment1_Salesboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj": {
+    "C:\\Users\\az\\Desktop\\Assignment1_Saleboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\az\\Desktop\\Assignment1_Salesboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj",
+        "projectUniqueName": "C:\\Users\\az\\Desktop\\Assignment1_Saleboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj",
         "projectName": "Assignment1_Salesboard",
-        "projectPath": "C:\\Users\\az\\Desktop\\Assignment1_Salesboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj",
+        "projectPath": "C:\\Users\\az\\Desktop\\Assignment1_Saleboard\\Assignment1_Salesboard\\Assignment1_Salesboard.csproj",
         "packagesPath": "C:\\Users\\az\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\az\\Desktop\\Assignment1_Salesboard\\Assignment1_Salesboard\\obj\\",
+        "outputPath": "C:\\Users\\az\\Desktop\\Assignment1_Saleboard\\Assignment1_Salesboard\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\az\\AppData\\Roaming\\NuGet\\NuGet.Config",
