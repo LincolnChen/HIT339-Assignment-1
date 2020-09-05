@@ -26,7 +26,15 @@ namespace Assignment1_Salesboard
         // GET: Items
         public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Items.ToListAsync());
+            var items = from m in _context.Items
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(s => s.ItemName.Contains(searchString));
+            }
+
+            return View(await items.ToListAsync());
         }
 
         // GET: Items/myItems
