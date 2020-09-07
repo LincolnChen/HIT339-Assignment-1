@@ -209,6 +209,18 @@ namespace Assignment1_Salesboard
                 return NotFound();
             }
 
+            if (items.Quantity == 0)
+            {
+                ViewBag.errorMessage = "Sorry, we are currently running out of stock.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            if (items.Quantity <= sales.Quantity)
+            {
+                ViewBag.errorMessage = "Please check your quantity of item/s before purchsaing";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             // update the quantity
             items.Quantity -= sales.Quantity;
             _context.Update(items);
