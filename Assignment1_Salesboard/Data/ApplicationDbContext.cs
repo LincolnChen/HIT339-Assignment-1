@@ -16,6 +16,7 @@ namespace Assignment1_Salesboard.Data
 
         public DbSet<Assignment1_Salesboard.Models.Items> Items { get; set; }
         public DbSet<Assignment1_Salesboard.Models.Sales> Sales { get; set; }
+        public DbSet<Assignment1_Salesboard.Models.Carts> Carts { get; set; }
 
 
 
@@ -23,6 +24,10 @@ namespace Assignment1_Salesboard.Data
         {
             base.OnModelCreating(builder);
         }
+
+
+
+ 
 
 
 

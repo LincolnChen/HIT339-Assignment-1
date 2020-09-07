@@ -484,3 +484,8 @@ C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netco
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Edit.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Purchase.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Index.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Create.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Delete.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Details.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Edit.cshtml.g.cs
