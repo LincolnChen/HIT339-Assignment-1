@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,15 @@ namespace Assignment1_Salesboard.Controllers
     public class ShoppingCartsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ShoppingCartsController(ApplicationDbContext context)
+
+
+        public ShoppingCartsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
+
         }
 
         // GET: ShoppingCarts
@@ -24,6 +30,16 @@ namespace Assignment1_Salesboard.Controllers
         {
             return View(await _context.ShoppingCart.ToListAsync());
         }
+
+        // GET: Carts/myShoppingCarts
+        public ActionResult MyCartItems()
+        {
+            var seller = _userManager.GetUserName(User);
+            var shoppingCart = _context.ShoppingCart
+                .Where(m => m.Seller == seller);
+            return View("Index", shoppingCart);
+        }
+
 
         // GET: ShoppingCarts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -40,7 +56,11 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            return View(shoppingCart);
+            var items = await _context.Items
+                .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
+
+            return View("Views/Items/Details.cshtml", items);
+
         }
 
         // GET: ShoppingCarts/Create
@@ -143,6 +163,39 @@ namespace Assignment1_Salesboard.Controllers
             _context.ShoppingCart.Remove(shoppingCart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //Checkout
+ 
+        public async Task<IActionResult> Checkout(Sales sales)
+        {
+            var buyer = _userManager.GetUserName(User);
+
+            sales.Buyer = buyer;
+
+            // make the sale
+            _context.Add(sales);
+            // find the items
+            var shoppingCart = await _context.ShoppingCart
+                .FirstOrDefaultAsync(c => c.CartId == sales.Item);
+
+
+            sales.Item = shoppingCart.Item;
+            sales.Quantity = shoppingCart.Quantity;
+
+            var items = await _context.Items
+                .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
+
+            // update the quantity
+            items.Quantity -= sales.Quantity;
+
+            _context.Update(items);
+
+
+            // Save the changes
+            await _context.SaveChangesAsync();
+
+            return View();
         }
 
         private bool ShoppingCartExists(int id)

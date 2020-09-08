@@ -43,7 +43,7 @@ namespace Assignment1_Salesboard
             var seller = _userManager.GetUserName(User);
             var items = _context.Items
                 .Where(m => m.Seller == seller);
-            return View("Index", items);
+            return View("MyItems", items);
         }
 
         // GET: Items/Details/5
@@ -215,7 +215,7 @@ namespace Assignment1_Salesboard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
-            if (items.Quantity <= sales.Quantity)
+            if (items.Quantity < 0)
             {
                 ViewBag.errorMessage = "Please check your quantity of item/s before purchsaing";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
@@ -230,6 +230,57 @@ namespace Assignment1_Salesboard
 
             return RedirectToAction(nameof(Index));
         }
+
+
+        // GET: ItemsController/AddToCart/5
+        public async Task<IActionResult> AddToCart(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var items = await _context.Items
+                .FirstOrDefaultAsync(i => i.Id == id);
+            if (items == null)
+            {
+                return NotFound();
+            }
+
+            return View(items);
+        }
+
+
+        // POST: ItemsController/AddToCart/5
+        [HttpPost, ActionName("AddToCart")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCartConfirmed([Bind("Item,Quantity")] ShoppingCart shoppingCart, Sales sales)
+        {
+
+            // get the buyer
+            var seller = _userManager.GetUserName(User);
+            shoppingCart.Seller = seller;
+
+            // make the add
+            _context.Add(shoppingCart);
+
+            // find the item
+            var items = await _context.Items
+                .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
+
+            if (items == null)
+            {
+                return NotFound();
+            }
+
+            // Save the changes
+            await _context.SaveChangesAsync();
+
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         private bool ItemsExists(int id)
         {

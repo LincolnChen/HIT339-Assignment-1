@@ -496,3 +496,4 @@ C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netc
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Details.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Edit.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Index.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\AddtoCart.cshtml.g.cs
