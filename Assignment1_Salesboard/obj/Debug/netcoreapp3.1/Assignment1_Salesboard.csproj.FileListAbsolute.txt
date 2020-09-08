@@ -279,11 +279,6 @@ C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netc
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Delete.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Details.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Edit.cshtml.g.cs
-C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sale\Index.cshtml.g.cs
-C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sale\Create.cshtml.g.cs
-C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sale\Delete.cshtml.g.cs
-C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sale\Details.cshtml.g.cs
-C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sale\Edit.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -489,3 +484,15 @@ C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netco
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Delete.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Details.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Saleboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Carts\Edit.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Purchase.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Create.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Delete.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Details.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Edit.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Index.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Create.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Delete.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Details.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Edit.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Index.cshtml.g.cs

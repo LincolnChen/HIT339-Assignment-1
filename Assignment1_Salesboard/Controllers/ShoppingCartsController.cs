@@ -10,22 +10,22 @@ using Assignment1_Salesboard.Models;
 
 namespace Assignment1_Salesboard.Controllers
 {
-    public class CartsController : Controller
+    public class ShoppingCartsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CartsController(ApplicationDbContext context)
+        public ShoppingCartsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Carts
+        // GET: ShoppingCarts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carts.ToListAsync());
+            return View(await _context.ShoppingCart.ToListAsync());
         }
 
-        // GET: Carts/Details/5
+        // GET: ShoppingCarts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var carts = await _context.Carts
+            var shoppingCart = await _context.ShoppingCart
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (carts == null)
+            if (shoppingCart == null)
             {
                 return NotFound();
             }
 
-            return View(carts);
+            return View(shoppingCart);
         }
 
-        // GET: Carts/Create
+        // GET: ShoppingCarts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Carts/Create
+        // POST: ShoppingCarts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CartId,ItemName,ItemImage,Quantity,Price")] Carts carts)
+        public async Task<IActionResult> Create([Bind("Id,CartId,Item,ItemImage,Quantity,Price,Seller")] ShoppingCart shoppingCart)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(carts);
+                _context.Add(shoppingCart);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(carts);
+            return View(shoppingCart);
         }
 
-        // GET: Carts/Edit/5
+        // GET: ShoppingCarts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var carts = await _context.Carts.FindAsync(id);
-            if (carts == null)
+            var shoppingCart = await _context.ShoppingCart.FindAsync(id);
+            if (shoppingCart == null)
             {
                 return NotFound();
             }
-            return View(carts);
+            return View(shoppingCart);
         }
 
-        // POST: Carts/Edit/5
+        // POST: ShoppingCarts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CartId,ItemName,ItemImage,Quantity,Price")] Carts carts)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CartId,Item,ItemImage,Quantity,Price,Seller")] ShoppingCart shoppingCart)
         {
-            if (id != carts.Id)
+            if (id != shoppingCart.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Assignment1_Salesboard.Controllers
             {
                 try
                 {
-                    _context.Update(carts);
+                    _context.Update(shoppingCart);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CartsExists(carts.Id))
+                    if (!ShoppingCartExists(shoppingCart.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Assignment1_Salesboard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(carts);
+            return View(shoppingCart);
         }
 
-        // GET: Carts/Delete/5
+        // GET: ShoppingCarts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Assignment1_Salesboard.Controllers
                 return NotFound();
             }
 
-            var carts = await _context.Carts
+            var shoppingCart = await _context.ShoppingCart
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (carts == null)
+            if (shoppingCart == null)
             {
                 return NotFound();
             }
 
-            return View(carts);
+            return View(shoppingCart);
         }
 
-        // POST: Carts/Delete/5
+        // POST: ShoppingCarts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var carts = await _context.Carts.FindAsync(id);
-            _context.Carts.Remove(carts);
+            var shoppingCart = await _context.ShoppingCart.FindAsync(id);
+            _context.ShoppingCart.Remove(shoppingCart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CartsExists(int id)
+        private bool ShoppingCartExists(int id)
         {
-            return _context.Carts.Any(e => e.Id == id);
+            return _context.ShoppingCart.Any(e => e.Id == id);
         }
     }
 }

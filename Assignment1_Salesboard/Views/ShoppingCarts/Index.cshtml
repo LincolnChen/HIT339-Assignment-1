@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Assignment1_Salesboard.Models.Carts>
+﻿@model IEnumerable<Assignment1_Salesboard.Models.ShoppingCart>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.CartId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemName)
+                @Html.DisplayNameFor(model => model.Item)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ItemImage)
@@ -26,6 +26,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seller)
             </th>
             <th></th>
         </tr>
@@ -37,16 +40,19 @@
                 @Html.DisplayFor(modelItem => item.CartId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
+                @Html.DisplayFor(modelItem => item.Item)
             </td>
             <td>
-                <img height="60px" ;width="60px" src="@Html.DisplayFor(modelItem => item.ItemImage)"></img>
+                @Html.DisplayFor(modelItem => item.ItemImage)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
