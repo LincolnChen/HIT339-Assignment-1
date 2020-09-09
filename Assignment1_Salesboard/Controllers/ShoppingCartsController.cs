@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,30 +17,36 @@ namespace Assignment1_Salesboard.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _session;
 
 
-
-        public ShoppingCartsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ShoppingCartsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHttpContextAccessor session)
         {
             _userManager = userManager;
             _context = context;
+            _session = session;
 
         }
 
         // GET: ShoppingCarts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ShoppingCart.ToListAsync());
+      
+            var cartId = _session.HttpContext.Session.GetString("cartId");
+            var carts = _context.ShoppingCart
+                .Where(c => c.CartId == cartId);
+
+            return View(await carts.ToListAsync());
         }
 
-        // GET: Carts/myShoppingCarts
-        public ActionResult MyCartItems()
-        {
-            var seller = _userManager.GetUserName(User);
-            var shoppingCart = _context.ShoppingCart
-                .Where(m => m.Seller == seller);
-            return View("Index", shoppingCart);
-        }
+        //// GET: Carts/myShoppingCarts
+        //public ActionResult ShoppingCartItems()
+        //{
+        //    var seller = _userManager.GetUserName(User);
+        //    var shoppingCart = _context.ShoppingCart
+        //        .Where(m => m.Seller == seller);
+        //    return View("Index", shoppingCart);
+        //}
 
 
         // GET: ShoppingCarts/Details/5
@@ -162,40 +170,80 @@ namespace Assignment1_Salesboard.Controllers
             var shoppingCart = await _context.ShoppingCart.FindAsync(id);
             _context.ShoppingCart.Remove(shoppingCart);
             await _context.SaveChangesAsync();
+            // add to cart
+            var checkCount = _session.HttpContext.Session.GetInt32("cartCount");
+            int cartCount = checkCount == null ? 0 : (int)checkCount;
+            _session.HttpContext.Session.SetInt32("cartCount", --cartCount);
             return RedirectToAction(nameof(Index));
         }
 
         //Checkout
- 
+        [Authorize]
         public async Task<IActionResult> Checkout(Sales sales)
         {
+            // get the cart id
+            var cartId = _session.HttpContext.Session.GetString("cartId");
+
+
+            // get the cart items
+            var carts = _context.ShoppingCart
+                .Where(c => c.CartId == cartId);
+
+            // get the buyer
             var buyer = _userManager.GetUserName(User);
 
-            sales.Buyer = buyer;
+            // create the sales
+            foreach (ShoppingCart shoppingCart in carts.ToList())
+            {
+                // find the item
+                var item = await _context.Items
+                    .FirstOrDefaultAsync(m => m.Id == shoppingCart.Item);
 
-            // make the sale
-            _context.Add(sales);
-            // find the items
-            var shoppingCart = await _context.ShoppingCart
-                .FirstOrDefaultAsync(c => c.CartId == sales.Item);
+                var seller = shoppingCart.Seller;
+                // update the quantity
+                item.Quantity -= shoppingCart.Quantity;
+                _context.Update(item);
 
-
-            sales.Item = shoppingCart.Item;
-            sales.Quantity = shoppingCart.Quantity;
-
-            var items = await _context.Items
-                .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
-
-            // update the quantity
-            items.Quantity -= sales.Quantity;
-
-            _context.Update(items);
-
+                Sales sale = new Sales { Buyer = buyer, Seller = seller, Item = shoppingCart.Item, Quantity = shoppingCart.Quantity, TotalPrice = item.Price };
+                _context.Update(sale);
+            }
 
             // Save the changes
             await _context.SaveChangesAsync();
 
-            return View();
+            // delete cart
+            _session.HttpContext.Session.SetString("cartId", "");
+            _session.HttpContext.Session.SetInt32("cartCount", 0);
+
+            //var buyer = _userManager.GetUserName(User);
+
+            //sales.Buyer = buyer;
+
+            //// make the sale
+            //_context.Add(sales);
+            //// find the items
+            //var shoppingCart = await _context.ShoppingCart
+            //    .FirstOrDefaultAsync(c => c.CartId == sales.Item);
+
+
+            //sales.Item = shoppingCart.Item;
+            //sales.Quantity = shoppingCart.Quantity;
+
+            //var items = await _context.Items
+            //    .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
+
+            //// update the quantity
+            //items.Quantity -= sales.Quantity;
+            //_context.Update(items);
+
+            //// Sales sale = new Sales { Buyer = buyer, Item = shoppingCart.Item, Quantity = shoppingCart.Quantity };
+            //// _context.Update(sale);
+
+            //// Save the changes
+            //await _context.SaveChangesAsync();
+
+            return View("Views/Home/ordersucessful.cshtml", ViewBag.ordersucessfulMessage);
+
         }
 
         private bool ShoppingCartExists(int id)

@@ -55,11 +55,10 @@
                 @Html.DisplayFor(modelItem => item.Seller)
             </td>
             <td>
-                <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Purchase" class="btn btn-warning" asp-route-id="@item.Id">Purchase</a> |
-                <a asp-action="AddToCart" class="btn btn-primary" asp-route-id="@item.Id">Add to Cart</a> |
+                <a asp-action="Purchase" class="btn btn-info" asp-route-id="@item.Id">Add to Cart</a> 
 
 
             </td>

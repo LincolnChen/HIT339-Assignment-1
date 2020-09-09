@@ -10,6 +10,11 @@ namespace Assignment1_Salesboard.Models
         public int Id { get; set; }
         public int Item { get; set; }
         public string Buyer { get; set; }
+        public string Seller { get; set; }
         public int Quantity { get; set; }
+        public decimal TotalPrice { get; set; }
+
+
+
     }
 }
