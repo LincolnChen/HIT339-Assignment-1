@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,53 @@ namespace Assignment1_Salesboard.Controllers
     public class SalesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SalesController(ApplicationDbContext context)
+
+        public SalesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Sales
         public async Task<IActionResult> Index()
         {
             return View(await _context.Sales.ToListAsync());
+        }
+
+        //Get my sales
+        public IActionResult MySales()
+        {
+            var seller = _userManager.GetUserName(User);
+
+            if (seller == null)
+            {
+                ViewBag.errorMessage = "You are currently not logged in, please log in to proceed!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            var sales = _context.Sales
+                .Where(s => s.Seller == seller);
+
+            return View("Index", sales);
+        }
+
+        // GET: Get my Purchase
+        public ActionResult MyPurchases()
+        {
+            var buyer = _userManager.GetUserName(User);
+            if (buyer == null)
+            {
+                ViewBag.errorMessage = "You are currently not logged in, please log in to proceed!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            var sales = _context.Sales
+                .Where(m => m.Buyer == buyer);
+
+            return View("Index", sales);
         }
 
         // GET: Sales/Details/5

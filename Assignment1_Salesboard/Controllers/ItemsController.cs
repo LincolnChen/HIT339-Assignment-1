@@ -49,9 +49,7 @@ namespace Assignment1_Salesboard
             var seller = _userManager.GetUserName(User);
             var items = _context.Items
                 .Where(m => m.Seller == seller);
-
-            
-            return View("MyItems", items);
+            return View("Index", items);
 
         }
 
@@ -118,6 +116,11 @@ namespace Assignment1_Salesboard
             if (items == null)
             {
                 return NotFound();
+            }
+            if (user != items.Seller)
+            {
+                ViewBag.errorMessage = "You don't have permission to edit the item. Please log in the user(Seller) to edit!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
             return View(items);
         }
