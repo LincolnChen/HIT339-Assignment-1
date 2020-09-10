@@ -51,11 +51,11 @@ namespace Assignment1_Salesboard.Controllers
         public ActionResult MyPurchases()
         {
             var buyer = _userManager.GetUserName(User);
-            if (buyer == null)
-            {
-                ViewBag.errorMessage = "You are currently not logged in, please log in to proceed!";
-                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-            }
+            //if (buyer == null)
+            //{
+            //    ViewBag.errorMessage = "You are currently not logged in, please log in to proceed!";
+            //    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            //}
 
             var sales = _context.Sales
                 .Where(m => m.Buyer == buyer);

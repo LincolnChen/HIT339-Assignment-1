@@ -119,7 +119,7 @@ namespace Assignment1_Salesboard
             }
             if (user != items.Seller)
             {
-                ViewBag.errorMessage = "You don't have permission to edit the item. Please log in the user(Seller) to edit!";
+                ViewBag.errorMessage = "You don't have permission to edit other seller's item. Please log in the user(Seller) to edit!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
             return View(items);
@@ -173,7 +173,7 @@ namespace Assignment1_Salesboard
             var AccessDenied = _userManager.GetUserName(User);
             if (items.Seller != AccessDenied)
             {
-                ViewBag.errorMessage = "You don't have permission to delete the item. Please log in the user(Seller) to delete!";
+                ViewBag.errorMessage = "You don't have permission to delete other seller's item. Please log in the user(Seller) to delete!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
@@ -221,16 +221,9 @@ namespace Assignment1_Salesboard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
-
-            if (items.Quantity < 0)
+            if (items.Quantity <= 0)
             {
-                ViewBag.errorMessage = "The quantity of item can not be less than 0. Please check your quantity of item/s before adding to cart";
-                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-            }
-
-            if (items.Quantity == 0)
-            {
-                ViewBag.errorMessage = "Sorry, we are currently running out of stock.";
+                ViewBag.errorMessage = "Sorry, we are currently running out of stock. Please check back later";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
@@ -257,13 +250,13 @@ namespace Assignment1_Salesboard
 
             if (sales.Quantity == 0)
             {
-                ViewBag.errorMessage = "Sorry, we are currently running out of stock.";
+                ViewBag.errorMessage = "Sorry, we are currently running out of stock. Please check back later";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
-            if (sales.Quantity < 0)
+            if (items.Quantity < sales.Quantity)
             {
-                ViewBag.errorMessage = "The quantity of item can not be less than 0. Please check your quantity of item/s before adding to cart";
+                ViewBag.errorMessage = "Sorry, we don't have enough stock for you order. Please check back later";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 

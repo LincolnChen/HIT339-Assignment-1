@@ -184,10 +184,15 @@ namespace Assignment1_Salesboard.Controllers
             // get the cart id
             var cartId = _session.HttpContext.Session.GetString("cartId");
 
-
             // get the cart items
             var carts = _context.ShoppingCart
                 .Where(c => c.CartId == cartId);
+
+            if (cartId == null)
+            {
+                ViewBag.errorMessage = "Sorry, you haven't added item to your cart therefore you can't check out";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
 
             // get the buyer
             var buyer = _userManager.GetUserName(User);
@@ -214,33 +219,6 @@ namespace Assignment1_Salesboard.Controllers
             // delete cart
             _session.HttpContext.Session.SetString("cartId", "");
             _session.HttpContext.Session.SetInt32("cartCount", 0);
-
-            //var buyer = _userManager.GetUserName(User);
-
-            //sales.Buyer = buyer;
-
-            //// make the sale
-            //_context.Add(sales);
-            //// find the items
-            //var shoppingCart = await _context.ShoppingCart
-            //    .FirstOrDefaultAsync(c => c.CartId == sales.Item);
-
-
-            //sales.Item = shoppingCart.Item;
-            //sales.Quantity = shoppingCart.Quantity;
-
-            //var items = await _context.Items
-            //    .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
-
-            //// update the quantity
-            //items.Quantity -= sales.Quantity;
-            //_context.Update(items);
-
-            //// Sales sale = new Sales { Buyer = buyer, Item = shoppingCart.Item, Quantity = shoppingCart.Quantity };
-            //// _context.Update(sale);
-
-            //// Save the changes
-            //await _context.SaveChangesAsync();
 
             return View("Views/Home/ordersucessful.cshtml", ViewBag.ordersucessfulMessage);
 
