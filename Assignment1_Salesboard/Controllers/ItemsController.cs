@@ -39,6 +39,14 @@ namespace Assignment1_Salesboard
                 items = items.Where(s => s.ItemName.Contains(searchString));
             }
 
+            var user = _userManager.GetUserName(User);
+            if (user == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "If an admin has made changes to other seller's item. Please check it on Admin page to see if it has been changed.";
+                return View("Views/Home/Important.cshtml", ViewBag.errorMessage);
+            }
+
+
             return View(await items.ToListAsync());
         }
 
@@ -47,11 +55,38 @@ namespace Assignment1_Salesboard
         public ActionResult MyItems()
         {
             var seller = _userManager.GetUserName(User);
+            if (seller == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "Admin only has access to Admin tab.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             var items = _context.Items
                 .Where(m => m.Seller == seller);
-            return View("Index", items);
+            return View("MyItems", items);
 
         }
+
+        public async Task<ActionResult> Admin()
+        {
+            var user = _userManager.GetUserName(User);
+
+            if (user == "admin@cdu.com")
+            {
+                return View(await _context.Items.ToListAsync());
+            }
+
+            if (user == null)
+            {
+                ViewBag.errorMessage = "If you are an admin, please log in to proceed.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+            else
+                ViewBag.errorMessage = "You are not Admin. You don't have access to this tab!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+
+        }
+
 
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -119,8 +154,14 @@ namespace Assignment1_Salesboard
             }
             if (user != items.Seller)
             {
-                ViewBag.errorMessage = "You don't have permission to edit other seller's item. Please log in the user(Seller) to edit!";
-                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                if (user == "admin@cdu.com")
+                {
+                    return View(items);
+                }
+                else
+                    ViewBag.errorMessage = "You don't have permission to edit other seller's item. Please log in the user(Seller) to edit!";
+                    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                
             }
             return View(items);
         }
@@ -136,7 +177,6 @@ namespace Assignment1_Salesboard
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
@@ -154,6 +194,7 @@ namespace Assignment1_Salesboard
                     {
                         throw;
                     }
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -173,8 +214,13 @@ namespace Assignment1_Salesboard
             var AccessDenied = _userManager.GetUserName(User);
             if (items.Seller != AccessDenied)
             {
-                ViewBag.errorMessage = "You don't have permission to delete other seller's item. Please log in the user(Seller) to delete!";
-                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                if (AccessDenied == "admin@cdu.com")
+                {
+                    return View(items);
+                }
+                else
+                    ViewBag.errorMessage = "You don't have permission to delete other seller's item. Please log in the user(Seller) to delete!";
+                    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             if (items == null)
@@ -261,13 +307,6 @@ namespace Assignment1_Salesboard
             }
 
 
-            //if (items.Quantity <= sales.Quantity)
-            //{
-            //    ViewBag.errorMessage = "Please check your quantity of item before adding to cart";
-            //    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-            //}
-
-
 
             // use the cart id
             shoppingCart.CartId = cartId.ToString();
@@ -293,50 +332,6 @@ namespace Assignment1_Salesboard
 
             return RedirectToAction(nameof(Index));
         }
-
-
-
-        //// POST: ItemsController/AddToCart/5
-        //[HttpPost, ActionName("AddToCart")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddToCart([Bind("Item,Quantity,Price,Seller")] ShoppingCart shoppingCart)
-        //{
-
-        //    // get the buyer
-        //    var seller = _userManager.GetUserName(User);
-        //    shoppingCart.Seller = seller;
-
-        //    // make the add
-        //    _context.Add(shoppingCart);
-
-        //    // find the item
-        //    var items = await _context.Items
-        //        .FirstOrDefaultAsync(i => i.Id == shoppingCart.Item);
-
-        //    if (items == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (items.Quantity == 0)
-        //    {
-        //        ViewBag.errorMessage = "Sorry, we are currently running out of stock.";
-        //        return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-        //    }
-
-        //    if (items.Quantity < 0)
-        //    {
-        //        ViewBag.errorMessage = "Please check your quantity of item/s before purchsaing";
-        //        return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-        //    }
-
-
-        //    // Save the changes
-        //    await _context.SaveChangesAsync();
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
 
         private bool ItemsExists(int id)
         {

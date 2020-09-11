@@ -36,18 +36,16 @@ namespace Assignment1_Salesboard.Controllers
             var carts = _context.ShoppingCart
                 .Where(c => c.CartId == cartId);
 
+            var user = _userManager.GetUserName(User);
+
+            if (user == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "Admin only has access to Admin tab.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             return View(await carts.ToListAsync());
         }
-
-        //// GET: Carts/myShoppingCarts
-        //public ActionResult ShoppingCartItems()
-        //{
-        //    var seller = _userManager.GetUserName(User);
-        //    var shoppingCart = _context.ShoppingCart
-        //        .Where(m => m.Seller == seller);
-        //    return View("Index", shoppingCart);
-        //}
-
 
         // GET: ShoppingCarts/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -27,6 +27,13 @@ namespace Assignment1_Salesboard.Controllers
         // GET: Sales
         public async Task<IActionResult> Index()
         {
+            var user = _userManager.GetUserName(User);
+            if (user == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "Admin only has access to Admin tab.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             return View(await _context.Sales.ToListAsync());
         }
 
@@ -41,6 +48,12 @@ namespace Assignment1_Salesboard.Controllers
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
+            if (seller == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "Admin only has access to Admin tab";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             var sales = _context.Sales
                 .Where(s => s.Seller == seller);
 
@@ -51,16 +64,16 @@ namespace Assignment1_Salesboard.Controllers
         public ActionResult MyPurchases()
         {
             var buyer = _userManager.GetUserName(User);
-            //if (buyer == null)
-            //{
-            //    ViewBag.errorMessage = "You are currently not logged in, please log in to proceed!";
-            //    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
-            //}
+            if (buyer == "admin@cdu.com")
+            {
+                ViewBag.errorMessage = "Admin only has access to Admin tab";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
 
             var sales = _context.Sales
                 .Where(m => m.Buyer == buyer);
 
-            return View("Index", sales);
+            return View("MyPurchases", sales);
         }
 
         // GET: Sales/Details/5
@@ -157,13 +170,20 @@ namespace Assignment1_Salesboard.Controllers
         // GET: Sales/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var sales = await _context.Sales
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = _userManager.GetUserName(User);
+            if (user != sales.Seller)
+            {
+                ViewBag.errorMessage = "You can't delete the item that you have purchased!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var sales = await _context.Sales
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (sales == null)
             {
                 return NotFound();

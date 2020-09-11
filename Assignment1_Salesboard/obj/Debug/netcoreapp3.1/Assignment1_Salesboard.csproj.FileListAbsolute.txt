@@ -498,3 +498,6 @@ C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netc
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingCarts\Index.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\ordersucessful.cshtml.g.cs
 C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\MyItems.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Admin.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Important.cshtml.g.cs
+C:\Users\az\Desktop\Assignment1_Salesboard\Assignment1_Salesboard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\MyPurchases.cshtml.g.cs
